@@ -36,6 +36,7 @@ from tools.tools_jadx import (
 from tools.tools_components import (
     tool_list_exported_components, tool_list_deeplinks,
     tool_list_permissions, tool_list_content_providers,
+    tool_audit_manifest,
 )
 from tools.tools_ui import (
     tool_send_intent, tool_open_deeplink,
@@ -48,7 +49,7 @@ from tools.tools_poc import (
 )
 from tools.tools_runtime import tool_capture_logcat, tool_list_app_files, tool_pull_app_file
 
-app = Server("APAIA")
+app = Server("android-pentest")
 
 # ---------------------------------------------------------------------------
 # Tool definitions (schema registry)
@@ -149,6 +150,15 @@ TOOLS = [
          inputSchema={"type": "object", "properties": {
              "package": {"type": "string"}, "device": {"type": "string"},
          }, "required": ["package"]}),
+    Tool(name="audit_manifest",
+         description=(
+             "Scan the decoded AndroidManifest.xml for security misconfigurations: "
+             "debuggable, allowBackup, cleartext traffic, exported components without permissions, "
+             "dangerous permissions, grantUriPermissions abuse, testOnly flag, and more. "
+             "Returns a severity-ranked report (CRITICAL / HIGH / MEDIUM / INFO). "
+             "Requires jadx_decompile to have run first."
+         ),
+         inputSchema={"type": "object", "properties": {"package": {"type": "string"}}, "required": ["package"]}),
 
     # Intent
     Tool(name="send_intent",
@@ -307,6 +317,7 @@ def dispatch(name: str, args: dict, device: Optional[str]) -> str:
         case "list_deeplinks":             return tool_list_deeplinks(args, device)
         case "list_permissions":           return tool_list_permissions(args["package"], device)
         case "list_content_providers":     return tool_list_content_providers(args, device)
+        case "audit_manifest":             return tool_audit_manifest(args["package"])
         # Intent / UI
         case "send_intent":                return tool_send_intent(args, device)
         case "open_deeplink":              return tool_open_deeplink(args["uri"], device)
