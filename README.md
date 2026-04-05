@@ -1,5 +1,6 @@
-# 🤖 Android Pentest MCP Server
-**v2 — ADB recon + JADX static analysis + UI PoC**
+# 🤖 Android Pentest AI Assistant (APAIA) MCP Server
+
+Android Pentest AI Assistant (APAIA) is an MCP server for Claude Desktop that was specifically created for pentesting purposes and aims to provide assistance for recon and static code analysis using ADB and JADX.
 
 ---
 
@@ -10,31 +11,14 @@
 - `jadx` — https://github.com/skylot/jadx/releases
 - Android device or emulator connected
 - Claude Desktop
-
-### Installing jadx
-
-```bash
-# macOS
-brew install jadx
-
-# Linux — download zip from releases, then:
-unzip jadx-*.zip -d ~/.local/jadx
-ln -s ~/.local/jadx/bin/jadx /usr/local/bin/jadx
-
-# Windows — extract zip, add bin/ to PATH
-```
-
-If jadx is not in your PATH, set `JADX_PATH` in the config (see below).
-
 ---
 
 ## Installation
 
 ```bash
-mkdir -p ~/mcp-servers/android-pentest
-cp server.py requirements.txt ~/mcp-servers/android-pentest/
+git clone https://github.com/mathis2001/APAIA
 
-cd ~/mcp-servers/android-pentest
+cd APAIA
 python3 -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
@@ -46,13 +30,14 @@ pip install -r requirements.txt
 
 **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`  
 **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+**Linux:** `~/.config/Claude/claude_desktop_config.json`
 
 ```json
 {
   "mcpServers": {
     "android-pentest": {
-      "command": "/ABSOLUTE/PATH/android-pentest/.venv/bin/python",
-      "args": ["/ABSOLUTE/PATH/android-pentest/server.py"],
+      "command": "/ABSOLUTE/PATH/APAIA/.venv/bin/python",
+      "args": ["/ABSOLUTE/PATH/APAIA/server.py"],
       "env": {
         "JADX_PATH": "/usr/local/bin/jadx",
         "ANDROID_PENTEST_WORKDIR": "/tmp/android-pentest"
