@@ -7,7 +7,7 @@ import re
 from typing import Optional
 
 from .adb_utils import run_adb_shell, fmt_error
-from .manifest_parser import parse_manifest, format_component
+from .manifest_parser import parse_manifest, format_component, format_misconfigs
 
 
 def tool_list_exported_components(args: dict) -> str:
@@ -133,3 +133,7 @@ def tool_list_content_providers(args: dict, device: Optional[str]) -> str:
     for a in auths:
         lines.append(f"  • content://{a}")
     return "\n".join(lines)
+
+
+def tool_audit_manifest(package: str) -> str:
+    return format_misconfigs(package)
