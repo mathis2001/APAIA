@@ -169,3 +169,25 @@ pull_app_file(package='com.example.app', remote_path='/data/data/com.example.app
 |----------|---------|-------------|
 | `JADX_PATH` | `jadx` (from PATH) | Absolute path to jadx binary |
 | `ANDROID_PENTEST_WORKDIR` | `~/.android-pentest` | Work directory for APKs and decompiled output |
+
+## Screenshots & Video Records
+
+https://github.com/user-attachments/assets/c9c3da45-78d7-47f4-98ad-e9d7b46b0829
+
+https://github.com/user-attachments/assets/3e67dbd4-9fc7-4f74-8eea-b91b97240e7d
+
+https://github.com/user-attachments/assets/250d6847-c490-42e8-86a0-6dfe8774ee63
+
+<img width="786" height="648" alt="Recon1" src="https://github.com/user-attachments/assets/71f827ef-2481-400e-a80c-67755c807d6b" />
+<img width="786" height="648" alt="Recon2" src="https://github.com/user-attachments/assets/2f4edb6e-96b1-4c32-8916-3fc78da76a3a" />
+<img width="786" height="648" alt="Recon3" src="https://github.com/user-attachments/assets/87bdf058-b097-439b-a0b1-cf05139611a2" />
+<img width="786" height="648" alt="Recon4" src="https://github.com/user-attachments/assets/a0d76417-1e18-4c2c-9608-7e98cfc71037" />
+
+
+
+
+
+
+
+
+
