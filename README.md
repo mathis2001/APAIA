@@ -182,9 +182,7 @@ https://github.com/user-attachments/assets/250d6847-c490-42e8-86a0-6dfe8774ee63
 <img width="786" height="648" alt="Recon2" src="https://github.com/user-attachments/assets/2f4edb6e-96b1-4c32-8916-3fc78da76a3a" />
 <img width="786" height="648" alt="Recon3" src="https://github.com/user-attachments/assets/87bdf058-b097-439b-a0b1-cf05139611a2" />
 <img width="786" height="648" alt="Recon4" src="https://github.com/user-attachments/assets/a0d76417-1e18-4c2c-9608-7e98cfc71037" />
-
-
-
+<img width="786" height="648" alt="manifest-audit" src="https://github.com/user-attachments/assets/acec26c4-0b2c-48e8-ba38-a64117ba8b72" />
 
 
 
