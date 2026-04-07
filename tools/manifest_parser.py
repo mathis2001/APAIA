@@ -334,6 +334,28 @@ def detect_misconfigs(package: str) -> list[Misconfig]:
                 recommendation="Require a custom signature-level permission on the receiver, or restrict it to internal broadcasts.",
             ))
 
+        # launchMode singleInstance / singleTask — task hijacking
+        if tag == "activity":
+            launch_mode = _attr(el, "launchMode")
+            if launch_mode in ("singleInstance", "singleTask"):
+                # singleInstance is always high-risk; singleTask is high-risk when exported
+                severity = Severity.HIGH if (launch_mode == "singleInstance" or exported) else Severity.MEDIUM
+                findings.append(Misconfig(
+                    severity=severity,
+                    title=f"Task hijacking risk — launchMode=\"{launch_mode}\"",
+                    detail=(
+                        f"{name} uses android:launchMode=\"{launch_mode}\". "
+                        f"{'singleInstance places the activity in its own isolated task, meaning any app that sends a matching intent can inject itself into the back-stack and intercept the user navigation flow.' if launch_mode == 'singleInstance' else 'singleTask reuses an existing task if one matches, allowing a malicious app to start this activity and sit on top of the legitimate task, creating a UI spoofing or phishing opportunity.'} "
+                        f"{'The activity is also exported, making it directly reachable by third-party apps.' if exported else 'The activity is not exported, but a malicious app with a matching taskAffinity can still trigger hijacking via implicit intents if intent-filters are present.'}"
+                    ),
+                    recommendation=(
+                        "Prefer the default launchMode (\"standard\") or \"singleTop\" for sensitive screens. "
+                        "If singleTask/singleInstance is required, set android:taskAffinity=\"\" to prevent affinity-based hijacking, "
+                        "verify callers with getCallingPackage() or a signature-level permission, "
+                        "and ensure the activity does not display sensitive data before authenticating the caller."
+                    ),
+                ))
+
     # --- Dangerous permissions ----------------------------------------
 
     declared_perms = [
