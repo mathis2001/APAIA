@@ -49,7 +49,9 @@ from tools.tools_poc import (
 )
 from tools.tools_runtime import tool_capture_logcat, tool_list_app_files, tool_pull_app_file
 
-app = Server("android-pentest")
+from tools.run_deeplink_poc import tool_run_deeplink_poc
+
+app = Server("APAIA")
 
 # ---------------------------------------------------------------------------
 # Tool definitions (schema registry)
@@ -250,6 +252,17 @@ TOOLS = [
              "selection":  {"type": "string", "description": "WHERE clause — try: 1=1 OR '1'='1'"},
              "device":     {"type": "string"},
          }, "required": ["uri"]}),
+    Tool(name="run_deeplink_poc",
+     description=(
+         "Generate a PoC APK that registers for a given deeplink scheme/host "
+         "to test deeplink hijacking, then install it on the connected device via adb."
+     ),
+     inputSchema={"type": "object", "properties": {
+         "deeplink":        {"type": "string", "description": "Deeplink URI to hijack — set by Claude (e.g. 'aep://com.smart.hellosmart'). REQUIRED."},
+         "output_path":     {"type": "string", "description": "Full path for the generated APK. Optional."},
+         "install":         {"type": "boolean", "description": "Install via adb after build. Default: true."},
+         "attacker_domain": {"type": "string", "description": "Domain to exfiltrate intercepted intent data. Optional."},
+     }, "required": ["deeplink"]}),
 
     # Runtime
     Tool(name="capture_logcat",
@@ -333,6 +346,8 @@ def dispatch(name: str, args: dict, device: Optional[str]) -> str:
         case "poc_fuzz_deeplinks":         return tool_poc_fuzz_deeplinks(args, device)
         case "poc_intent_fuzzer":          return tool_poc_intent_fuzzer(args, device)
         case "poc_query_content_provider": return tool_poc_query_provider(args, device)
+        case "run_deeplink_poc":           return tool_run_deeplink_poc(args, device)
+
         # Runtime
         case "capture_logcat":             return tool_capture_logcat(args, device)
         case "list_app_files":             return tool_list_app_files(args, device)
