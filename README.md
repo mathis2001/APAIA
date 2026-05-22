@@ -10,7 +10,7 @@ Android Pentest AI Assistant (APAIA) is an MCP server for Claude Desktop that wa
 - `adb` in PATH (Android SDK platform-tools)
 - `jadx` — https://github.com/skylot/jadx/releases
 - Android device or emulator connected
-- Claude Desktop
+- Claude
 ---
 
 ## Installation
@@ -104,6 +104,7 @@ pip install -r requirements.txt
 | `poc_fuzz_deeplinks` | Deep link fuzzer with `{FUZZ}` template |
 | `poc_intent_fuzzer` | Batch intent sending with varying extras |
 | `poc_query_content_provider` | Unauth access + SQLi testing |
+| `poc_deeplink_hijacking` | Deeplink Hijacking PoC testing |
 
 ### 📋 Runtime Analysis
 | Tool | Description |
